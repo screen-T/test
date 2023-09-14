@@ -1,7 +1,7 @@
 var btn = document.querySelector("#start")
 var c = document.querySelector("#canvas");
 var ctx = c.getContext("2d");
-c.width = 500;
+c.width = 440;
 c.height = 250;
 var perm = [];
 while (perm.length < 255) {
@@ -23,7 +23,7 @@ var player = new function () {
     this.rSpeed = 0;
 
     this.img = new Image();
-    this.img.src = "./js/moto.png";
+    this.img.src = "./img/moto.png";
     this.draw = function () {
         var p1 = c.height - noise(t + this.x) * 0.25;
         var p2 = c.height - noise(t + 5 + this.x) * 0.25;
@@ -95,42 +95,51 @@ btn.addEventListener("click", () => {
 });
 
 // Add event listeners for mobile controls
-document.getElementById("mobileUpButton").addEventListener("click", function() {
+// Add event listeners for mobile controls
+document.getElementById("mobileUpButton").addEventListener("touchstart", function(event) {
+    event.preventDefault(); // Prevent default touch event behavior
     k.ArrowUp = 1;
     // Handle the "Up" action here
 });
 
-document.getElementById("mobileDownButton").addEventListener("click",()=>{
-    k.ArrowDown = 1 
-})
+document.getElementById("mobileDownButton").addEventListener("touchstart", function(event) {
+    event.preventDefault(); // Prevent default touch event behavior
+    k.ArrowDown = 1;
+    // Handle the "Down" action here
+});
 
-document.getElementById("mobileLeftButton").addEventListener("click", function() {
+document.getElementById("mobileLeftButton").addEventListener("touchstart", function(event) {
+    event.preventDefault(); // Prevent default touch event behavior
     k.ArrowLeft = 1;
     // Handle the "Left" action here
 });
 
-document.getElementById("mobileRightButton").addEventListener("click", function() {
+document.getElementById("mobileRightButton").addEventListener("touchstart", function(event) {
+    event.preventDefault(); // Prevent default touch event behavior
     k.ArrowRight = 1;
     // Handle the "Right" action here
 });
 
 // Add event listeners for mobile control release (touchend)
-document.getElementById("mobileUpButton").addEventListener("touchend", function() {
+document.getElementById("mobileUpButton").addEventListener("touchend", function(event) {
+    event.preventDefault(); // Prevent default touch event behavior
     k.ArrowUp = 0;
 });
 
-document.getElementById("mobileDownButton").addEventListener("touchend",()=>{
-    k.ArrowDown = 0
-})
+document.getElementById("mobileDownButton").addEventListener("touchend", function(event) {
+    event.preventDefault(); // Prevent default touch event behavior
+    k.ArrowDown = 0;
+});
 
-
-
-document.getElementById("mobileLeftButton").addEventListener("touchend", function() {
+document.getElementById("mobileLeftButton").addEventListener("touchend", function(event) {
+    event.preventDefault(); // Prevent default touch event behavior
     k.ArrowLeft = 0;
 });
 
-document.getElementById("mobileRightButton").addEventListener("touchend", function() {
+document.getElementById("mobileRightButton").addEventListener("touchend", function(event) {
+    event.preventDefault(); // Prevent default touch event behavior
     k.ArrowRight = 0;
 });
+
 
 loop();
