@@ -1,9 +1,8 @@
 var btn = document.querySelector("#start")
 var c = document.querySelector("#canvas");
 var ctx = c.getContext("2d");
-c.width = 700;
+c.width = 500;
 c.height = 250;
-//test
 var perm = [];
 while (perm.length < 255) {
     while (perm.includes(val = Math.floor(Math.random() * 255)));
@@ -101,6 +100,10 @@ document.getElementById("mobileUpButton").addEventListener("click", function() {
     // Handle the "Up" action here
 });
 
+document.getElementById("mobileDownButton").addEventListener("click",()=>{
+    k.ArrowDown = 1 
+})
+
 document.getElementById("mobileLeftButton").addEventListener("click", function() {
     k.ArrowLeft = 1;
     // Handle the "Left" action here
@@ -115,6 +118,12 @@ document.getElementById("mobileRightButton").addEventListener("click", function(
 document.getElementById("mobileUpButton").addEventListener("touchend", function() {
     k.ArrowUp = 0;
 });
+
+document.getElementById("mobileDownButton").addEventListener("touchend",()=>{
+    k.ArrowDown = 0
+})
+
+
 
 document.getElementById("mobileLeftButton").addEventListener("touchend", function() {
     k.ArrowLeft = 0;
