@@ -1,9 +1,8 @@
 var btn = document.querySelector("#start")
-var c = document.createElement("canvas");
+var c = document.querySelector("#canvas");
 var ctx = c.getContext("2d");
-c.width = 500;
-c.height = 350;
-document.body.appendChild(c);
+c.width = 700;
+c.height = 250;
 
 var perm = [];
 while (perm.length < 255) {
@@ -44,8 +43,6 @@ var player = new function () {
             this.rSpeed = 5;
             k.ArrowUp = 1;
             this.x -= speed * 2.5;
-            /* window.location.reload()
-            return */
         }
 
         var angle = Math.atan2((p2 - 15) - this.y, (this.x + 5) - this.x);
@@ -56,13 +53,13 @@ var player = new function () {
             this.rSpeed = this.rSpeed - (angle - this.rot);
         }
         this.rSpeed += (k.ArrowLeft - k.ArrowRight) * 0.05;
-        this.rot -= this.rSpeed * 0.1; // Changed ',' to '.' here
+        this.rot -= this.rSpeed * 0.1;
         if (this.rot > Math.PI) this.rot = -Math.PI;
         if (this.rot < -Math.PI) this.rot = Math.PI;
         ctx.save();
         ctx.translate(this.x, this.y);
         ctx.rotate(this.rot);
-        ctx.drawImage(this.img, -15, -15, 30, 30); // Corrected the coordinates for drawing the image
+        ctx.drawImage(this.img, -15, -15, 30, 30);
         ctx.restore();
     }
 }
@@ -71,10 +68,11 @@ var t = 0;
 var speed = 0;
 var playing = true;
 var k = { ArrowUp: 0, ArrowDown: 0, ArrowLeft: 0, ArrowRight: 0 };
+
 function loop() {
     speed -= (speed - (k.ArrowUp - k.ArrowDown)) * 0.01;
     t += 10 * speed;
-    ctx.fillStyle = "#FFA1F5"; // Changed "fillstyle" to "fillStyle"
+    ctx.fillStyle = "#FFA1F5";
     ctx.fillRect(0, 0, c.width, c.height);
 
     ctx.fillStyle = "blue";
@@ -90,8 +88,40 @@ function loop() {
     requestAnimationFrame(loop);
 }
 
-// Changed "onekeyup" to "onkeyup" in the event handler
 onkeydown = d => k[d.key] = 1;
 onkeyup = d => k[d.key] = 0;
-btn.addEventListener("click",()=>{window.location.reload()})
+
+btn.addEventListener("click", () => {
+    window.location.reload();
+});
+
+// Add event listeners for mobile controls
+document.getElementById("mobileUpButton").addEventListener("click", function() {
+    k.ArrowUp = 1;
+    // Handle the "Up" action here
+});
+
+document.getElementById("mobileLeftButton").addEventListener("click", function() {
+    k.ArrowLeft = 1;
+    // Handle the "Left" action here
+});
+
+document.getElementById("mobileRightButton").addEventListener("click", function() {
+    k.ArrowRight = 1;
+    // Handle the "Right" action here
+});
+
+// Add event listeners for mobile control release (touchend)
+document.getElementById("mobileUpButton").addEventListener("touchend", function() {
+    k.ArrowUp = 0;
+});
+
+document.getElementById("mobileLeftButton").addEventListener("touchend", function() {
+    k.ArrowLeft = 0;
+});
+
+document.getElementById("mobileRightButton").addEventListener("touchend", function() {
+    k.ArrowRight = 0;
+});
+
 loop();
