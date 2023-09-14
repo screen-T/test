@@ -1,7 +1,7 @@
 var btn = document.querySelector("#start")
 var c = document.querySelector("#canvas");
 var ctx = c.getContext("2d");
-c.width = 440;
+c.width = 1300;
 c.height = 250;
 var perm = [];
 while (perm.length < 255) {
