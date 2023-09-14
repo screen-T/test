@@ -3,7 +3,7 @@ var c = document.querySelector("#canvas");
 var ctx = c.getContext("2d");
 c.width = 700;
 c.height = 250;
-
+//test
 var perm = [];
 while (perm.length < 255) {
     while (perm.includes(val = Math.floor(Math.random() * 255)));
