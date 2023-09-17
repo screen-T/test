@@ -1,6 +1,8 @@
 var btn = document.querySelector("#start");
 var c = document.querySelector("#canvas");
 var ctx = c.getContext("2d");
+var skins=["./img/moto.png","./img/motorbike.png","./img/monster-truck.png","./img/bus.png","./img/motoColor.png","./img/two.png","./img/delivery-bike.png","./img/delivery.png"]
+var skinSelected=1
 c.width = 750;
 c.height = 350;
 var perm = [];
@@ -14,7 +16,7 @@ var noise = (x) => {
   x = (x * level) % 255;
   return lerp(perm[Math.floor(x)], perm[Math.ceil(x)], x - Math.floor(x));
 };
-
+var img = new Image();
 var player = new (function () {
   this.x = c.width / 2;
   this.y = 0;
@@ -22,9 +24,9 @@ var player = new (function () {
   this.rot = 0;
   this.rSpeed = 0;
 
-  var img = new Image();
-  img.src = "./img/motorbike.png";
   
+  img.src = skins[skinSelected];
+ 
   // Add any other styling here
 
   this.draw = function () {
@@ -61,7 +63,13 @@ var player = new (function () {
     ctx.save();
     ctx.translate(this.x, this.y);
     ctx.rotate(this.rot);
-    ctx.drawImage(img, -30, -30, 50, 50);
+    if(skinSelected==3 || skinSelected==2){
+      ctx.drawImage(img, -30, -40, 70, 70);
+    }
+    else{
+      ctx.drawImage(img, -30, -30, 50, 50);
+    }
+    
     ctx.restore();
   };
 })();
@@ -86,6 +94,7 @@ function loop() {
   ctx.fill();
 
   player.draw();
+ 
 
   // Check if 3 seconds have passed to increase the level
 /*   if (performance.now() - startTime >= 800) {
@@ -168,5 +177,24 @@ document
     event.preventDefault(); // Prevent default touch event behavior
     k.ArrowRight = 0;
   });
+
+  document
+  .getElementById("skin-btn")
+  .addEventListener("click", function (event) {
+    event.preventDefault(); // Prevent default touch event behavior
+    skinSelected++
+    if(skinSelected>skins.length-1){
+      skinSelected=0
+      img.src = skins[skinSelected];
+    }
+    else{
+      
+      img.src = skins[skinSelected];
+    }
+    
+    console.log(skins.length)
+  });
+
+
 
 loop();
